@@ -86,6 +86,46 @@ createTable.js
           }
       });
 ```
+
+Run the create table script.
+```
+
+> node createTable.js
+
+Created table. Table description JSON: {
+  "TableDescription": {
+    "AttributeDefinitions": [
+      {
+        "AttributeName": "zip",
+        "AttributeType": "N"
+      }
+    ],
+    "TableName": "Weather",
+    "KeySchema": [
+      {
+        "AttributeName": "zip",
+        "KeyType": "HASH"
+      }
+    ],
+    "TableStatus": "ACTIVE",
+    "CreationDateTime": "2020-10-27T18:24:15.458Z",
+    "ProvisionedThroughput": {
+      "LastIncreaseDateTime": "1970-01-01T00:00:00.000Z",
+      "LastDecreaseDateTime": "1970-01-01T00:00:00.000Z",
+      "NumberOfDecreasesToday": 0,
+      "ReadCapacityUnits": 5,
+      "WriteCapacityUnits": 5
+    },
+    "TableSizeBytes": 0,
+    "ItemCount": 0,
+    "TableArn": "arn:aws:dynamodb:ddblocal:000000000000:table/Weather"
+  }
+}
+
+```
+
+
+
 Create some data.
 
 weatherData.json
@@ -108,7 +148,8 @@ weatherData.json
 
 ```
 
-Load some data.
+
+Write a script to load data.
 
 loadWeatherData.js
 
@@ -149,5 +190,31 @@ weather.forEach(function(loc) {
        }
     });
 });
+
+```
+
+
+Run the load data script.
+```
+
+> node loadWeatherData.js
+Importing Weather into DynamoDB.
+{
+  zip: 10110,
+  temp: 89,
+  windspeed: 10,
+  humidity: 0.75,
+  bar_pressure: 22
+}
+{
+  zip: 38419,
+  temp: 79,
+  windspeed: 44,
+  humidity: 0.45,
+  bar_pressure: 42
+}
+PutItem succeeded: 10110
+PutItem succeeded: 38419
+
 
 ```
