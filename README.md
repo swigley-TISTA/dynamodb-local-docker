@@ -218,3 +218,26 @@ PutItem succeeded: 38419
 
 
 ```
+
+Running Mocha tests
+
+```
+
+> npm run-script test                   
+
+ dynamodb-local-docker@1.0.0 test /Users/samwigley/Projects/github.com/swigley-TISTA/dynamodb-local-docker
+ node_modules/mocha/bin/mocha test/test.js
+
+Loading node envoronment: "development"
+
+
+  DynamoDB
+    query row count
+      ✓ should return 2 because there are two items
+    query by key
+      ✓ should return one item.
+
+
+  2 passing (29ms)
+
+```
