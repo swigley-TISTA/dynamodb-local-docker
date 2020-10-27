@@ -90,7 +90,7 @@ createTable.js
 Run the create table script.
 ```
 
-> node createTable.js
+> npm run-script create-table
 
 Created table. Table description JSON: {
   "TableDescription": {
@@ -197,7 +197,7 @@ weather.forEach(function(loc) {
 Run the load data script.
 ```
 
-> node loadWeatherData.js
+> npm run-script load-data
 Importing Weather into DynamoDB.
 {
   zip: 10110,
@@ -239,5 +239,47 @@ Loading node envoronment: "development"
 
 
   2 passing (29ms)
+
+```
+
+
+Drop the table
+
+```
+
+    > npm run-script drop-table  
+   
+   dynamodb-local-docker@1.0.0 drop-table /Users/samwigley/Projects/github.com/swigley-TISTA/dynamodb-local-docker
+   node deleteTable.js
+   
+   Deleted table. Table description JSON: {
+     "TableDescription": {
+       "AttributeDefinitions": [
+         {
+           "AttributeName": "zip",
+           "AttributeType": "N"
+         }
+       ],
+       "TableName": "Weather",
+       "KeySchema": [
+         {
+           "AttributeName": "zip",
+           "KeyType": "HASH"
+         }
+       ],
+       "TableStatus": "ACTIVE",
+       "CreationDateTime": "2020-10-27T21:48:18.648Z",
+       "ProvisionedThroughput": {
+         "LastIncreaseDateTime": "1970-01-01T00:00:00.000Z",
+         "LastDecreaseDateTime": "1970-01-01T00:00:00.000Z",
+         "NumberOfDecreasesToday": 0,
+         "ReadCapacityUnits": 5,
+         "WriteCapacityUnits": 5
+       },
+       "TableSizeBytes": 96,
+       "ItemCount": 2,
+       "TableArn": "arn:aws:dynamodb:ddblocal:000000000000:table/Weather"
+     }
+   }
 
 ```
