@@ -1,0 +1,14 @@
+ [
+      { "zip": 10110,
+        "temp" : 89,
+        "windspeed" : 10,    
+        "humidity" : 0.75,
+        "bar_pressure" : 22
+      },
+      { "zip": 38419,
+        "temp" : 79,
+        "windspeed" : 44,
+        "humidity" : 0.45,
+        "bar_pressure" : 42
+      }
+    ]
