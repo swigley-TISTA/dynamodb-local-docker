@@ -1,0 +1,27 @@
+{
+  "name": "dynamodb-local-docker",
+  "version": "1.0.0",
+  "description": "A docker image to launch a local insance of DynamoDB.  Based on the AWS documentation [Deploying DynamoDB Locally on Your Computer](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html).",
+  "main": "index.js",
+  "scripts": {
+    "create-table": "node createTable.js",
+    "load-data": "node loadWeatherData.js",
+    "drop-table": "node deleteTable.js",  
+    "test": "node_modules/mocha/bin/mocha test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swigley-TISTA/dynamodb-local-docker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/swigley-TISTA/dynamodb-local-docker/issues"
+  },
+  "homepage": "https://github.com/swigley-TISTA/dynamodb-local-docker#readme",
+  "dependencies": {
+    "aws-sdk": "^2.780.0",
+    "dot-env": "0.0.1",
+    "mocha": "^8.2.0"
+  }
+}
