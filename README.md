@@ -55,9 +55,8 @@ AWS documentation on how to use DynamoDB in local mode can be found in [Setting 
 
 Create a table.
 
-createTable.js
-
 ```
+### createTable.js
 
     var AWS = require("aws-sdk");
     AWS.config.update({
@@ -128,8 +127,9 @@ Created table. Table description JSON: {
 
 Create some data.
 
-weatherData.json
+
 ```
+### weatherData.json
 
     [
       { "zip": 10110,
@@ -151,45 +151,47 @@ weatherData.json
 
 Write a script to load data.
 
-loadWeatherData.js
+
 
 ```
-var AWS = require("aws-sdk");
-var fs = require('fs');
+### loadWeatherData.js
 
-AWS.config.update({
-    region: "us-east-2",
-    endpoint: "http://localhost:8000"
-});
+    var AWS = require("aws-sdk");
+    var fs = require('fs');
 
-var dynamo = new AWS.DynamoDB.DocumentClient();
-
-console.log("Importing Weather into DynamoDB.");
-
-var weather = JSON.parse(fs.readFileSync('weatherData.json', 'utf8'));
-
-weather.forEach(function(loc) {
-  console.log(loc)
-
-    var params = {
-        TableName: "Weather",
-        Item: {
-            "zip": loc.zip,
-            "temp": loc.temp,
-            "windspeed": loc.windspeed,
-            "humidity": loc.humidity,
-            "bar_pressure": loc.bar_pressure
-        }
-    };
-
-    dynamo.put(params, function(err, data) {
-       if (err) {
-           console.error("Unable to add weather for location", loc.zip, ". Error JSON:", JSON.stringify(err, null, 2));
-       } else {
-           console.log("PutItem succeeded:", loc.zip);
-       }
+    AWS.config.update({
+        region: "us-east-2",
+        endpoint: "http://localhost:8000"
     });
-});
+
+    var dynamo = new AWS.DynamoDB.DocumentClient();
+
+    console.log("Importing Weather into DynamoDB.");
+
+    var weather = JSON.parse(fs.readFileSync('weatherData.json', 'utf8'));
+
+    weather.forEach(function(loc) {
+      console.log(loc)
+
+        var params = {
+            TableName: "Weather",
+            Item: {
+                "zip": loc.zip,
+                "temp": loc.temp,
+                "windspeed": loc.windspeed,
+                "humidity": loc.humidity,
+                "bar_pressure": loc.bar_pressure
+            }
+        };
+
+        dynamo.put(params, function(err, data) {
+           if (err) {
+               console.error("Unable to add weather for location", loc.zip, ". Error JSON:", JSON.stringify(err, null, 2));
+           } else {
+               console.log("PutItem succeeded:", loc.zip);
+           }
+        });
+    });
 
 ```
 
