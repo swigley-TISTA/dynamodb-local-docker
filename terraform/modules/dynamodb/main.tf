@@ -1,37 +1,58 @@
-module "dynamodb_table" {
-  source = "../../"
 
-  name      = "my-table"
-  hash_key  = "id"
-  range_key = "title"
+variable "table_name" {
+  type = string
+  description = "The name for the dynamoDB table."
+}
 
-  attributes = [
-    {
-      name = "id"
-      type = "N"
-    },
-    {
-      name = "title"
-      type = "S"
-    },
-    {
-      name = "age"
-      type = "N"
-    }
-  ]
+variable "hash_key" {
+  type = string
+  description = "The name of the hash key for the dynamoDB table."
+}
 
-  global_secondary_indexes = [
-    {
-      name               = "TitleIndex"
-      hash_key           = "title"
-      range_key          = "age"
-      projection_type    = "INCLUDE"
-      non_key_attributes = ["id"]
-    }
-  ]
+variable "hash_key_type" {
+  type = string
+  description = "The type of the hash key for the dynamoDB table."
+}
+
+variable "range_key" {
+  type = string
+  description = "The name of the range key for the dynamoDB table."
+}
+
+variable "range_key_type" {
+  type = string
+  description = "The type of the range key for the dynamoDB table."
+}
+variable "env" {
+  type = string
+  description = "The name of the environment for the dynamoDB table (prod, dev, qa, etc.)."
+}
+
+resource "aws_dynamodb_table" "basic-dynamodb-table" {
+  name           = var.table_name
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 20
+  write_capacity = 20
+  hash_key       = var.hash_key
+  range_key      = var.range_key
+
+  attribute {
+    name = var.hash_key
+    type = "S"
+  }
+
+  attribute {
+    name = var.range_key
+    type = "N"
+  }
+
+  ttl {
+    attribute_name = "TimeToExist"
+    enabled        = false
+  }
 
   tags = {
-    Terraform   = "true"
-    Environment = "staging"
+    Name        = var.table_name
+    Environment = var.env
   }
 }
