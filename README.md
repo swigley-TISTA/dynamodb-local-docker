@@ -2,6 +2,13 @@
 
 A docker image to launch a local insance of DynamoDB.  Based on the AWS documentation [Deploying DynamoDB Locally on Your Computer](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html).
 
+Includes the following as examples:
+* Use of dynamoDB in local mode for a development environment
+* Dotenv configuration for local testing and deployed environment management
+* Nodejs scripts for table/data administration
+* Mocha unit tests
+* Terraform module with terragrunt deployment scripts
+
 **To install and run DynamoDB local with Docker Compose:**
 
 1. Download [Docker Desktop](https://www.docker.com/products/docker-desktop).
