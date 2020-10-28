@@ -309,6 +309,38 @@ Now change directory to the environment that you want to deploy and initialize t
 > terragrunt init
 > terragrunt plan
 
+
+
+Initializing the backend...
+
+Successfully configured the backend "s3"! Terraform will automatically
+use this backend unless the backend configuration changes.
+
+Initializing provider plugins...
+- Finding latest version of hashicorp/aws...
+- Installing hashicorp/aws v3.12.0...
+- Installed hashicorp/aws v3.12.0 (signed by HashiCorp)
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, we recommend adding version constraints in a required_providers block
+in your configuration, with the constraint strings suggested below.
+
+* hashicorp/aws: version = "~> 3.12.0"
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+[terragrunt] 2020/10/28 12:37:56 Running command: terraform plan
+Acquiring state lock. This may take a few moments...
 Refreshing Terraform state in-memory prior to plan...
 The refreshed state will be used to calculate this plan, but will not be
 persisted to local or remote state storage.
@@ -326,43 +358,27 @@ Terraform will perform the following actions:
   + resource "aws_dynamodb_table" "basic-dynamodb-table" {
       + arn              = (known after apply)
       + billing_mode     = "PROVISIONED"
-      + hash_key         = "UserId"
+      + hash_key         = "zip"
       + id               = (known after apply)
-      + name             = "test-table"
-      + range_key        = "GameTitle"
+      + name             = "Weather"
+      + range_key        = "temp"
       + read_capacity    = 20
       + stream_arn       = (known after apply)
       + stream_label     = (known after apply)
       + stream_view_type = (known after apply)
       + tags             = {
-          + "Environment" = "production"
-          + "Name"        = "dynamodb-table-1"
+          + "Environment" = "prod"
+          + "Name"        = "Weather"
         }
       + write_capacity   = 20
 
       + attribute {
-          + name = "GameTitle"
-          + type = "S"
-        }
-      + attribute {
-          + name = "TopScore"
+          + name = "temp"
           + type = "N"
         }
       + attribute {
-          + name = "UserId"
+          + name = "zip"
           + type = "S"
-        }
-
-      + global_secondary_index {
-          + hash_key           = "GameTitle"
-          + name               = "GameTitleIndex"
-          + non_key_attributes = [
-              + "UserId",
-            ]
-          + projection_type    = "INCLUDE"
-          + range_key          = "TopScore"
-          + read_capacity      = 10
-          + write_capacity     = 10
         }
 
       + point_in_time_recovery {
@@ -383,6 +399,10 @@ Terraform will perform the following actions:
 Plan: 1 to add, 0 to change, 0 to destroy.
 
 ------------------------------------------------------------------------
+
+Note: You didn't specify an "-out" parameter to save this plan, so Terraform
+can't guarantee that exactly these actions will be performed if
+"terraform apply" is subsequently run.
 
 ```
 
