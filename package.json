@@ -4,9 +4,9 @@
   "description": "A docker image to launch a local insance of DynamoDB.  Based on the AWS documentation [Deploying DynamoDB Locally on Your Computer](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html).",
   "main": "index.js",
   "scripts": {
-    "create-table": "node createTable.js",
-    "load-data": "node loadWeatherData.js",
-    "drop-table": "node deleteTable.js",
+    "create-table": "cd db_scripts && node createTable.js",
+    "load-data": "cd db_scripts && node loadWeatherData.js",
+    "drop-table": "cd db_scripts && node deleteTable.js",
     "test": "node_modules/mocha/bin/mocha test/test.js"
   },
   "repository": {
