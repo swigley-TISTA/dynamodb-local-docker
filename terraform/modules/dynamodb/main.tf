@@ -1,4 +1,5 @@
 
+
 variable "table_name" {
   type = string
   description = "The name for the dynamoDB table."
@@ -28,8 +29,18 @@ variable "env" {
   description = "The name of the environment for the dynamoDB table (prod, dev, qa, etc.)."
 }
 
+variable "aws_region" {
+  type = string
+  description = "The name of the aws_region for the dynamoDB table."
+}
+
+provider "aws" {
+  region = var.aws_region
+}
+
+
 resource "aws_dynamodb_table" "basic-dynamodb-table" {
-  name           = var.table_name
+  name           = "${var.table_name}-${var.env}"
   billing_mode   = "PROVISIONED"
   read_capacity  = 20
   write_capacity = 20

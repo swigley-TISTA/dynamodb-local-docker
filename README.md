@@ -288,7 +288,20 @@ Drop the table
 
 ## Deploying to AWS with Terraform
 
-First change directory to the environment that you want to deploy and initialize terragrunt, reviewing the output from [terragrunt plan](https://terragrunt.gruntwork.io/docs/reference/cli-options/).
+First create a copy of account.hcl.examle called account.acl, and add AWS account details to the variables.  Also update region.hcl and env.hcl if needed.
+
+```
+
+    locals {
+      account_name   = "my-aws-account"
+      aws_account_id = "1234567891011" 
+      aws_profile    = "dev"
+    }
+
+
+```
+
+Now change directory to the environment that you want to deploy and initialize terragrunt, reviewing the output from [terragrunt plan](https://terragrunt.gruntwork.io/docs/reference/cli-options/).
 
 ```
 
@@ -378,7 +391,73 @@ Now review the output
 
 ```
 > terraform apply
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
 
+Terraform will perform the following actions:
 
+  # aws_dynamodb_table.basic-dynamodb-table will be created
+  + resource "aws_dynamodb_table" "basic-dynamodb-table" {
+      + arn              = (known after apply)
+      + billing_mode     = "PROVISIONED"
+      + hash_key         = "zip"
+      + id               = (known after apply)
+      + name             = "Weather-stage"
+      + range_key        = "temp"
+      + read_capacity    = 20
+      + stream_arn       = (known after apply)
+      + stream_label     = (known after apply)
+      + stream_view_type = (known after apply)
+      + tags             = {
+          + "Environment" = "stage"
+          + "Name"        = "Weather"
+        }
+      + write_capacity   = 20
+
+      + attribute {
+          + name = "temp"
+          + type = "N"
+        }
+      + attribute {
+          + name = "zip"
+          + type = "S"
+        }
+
+      + point_in_time_recovery {
+          + enabled = (known after apply)
+        }
+
+      + server_side_encryption {
+          + enabled     = (known after apply)
+          + kms_key_arn = (known after apply)
+        }
+
+      + ttl {
+          + attribute_name = "TimeToExist"
+          + enabled        = false
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+aws_dynamodb_table.basic-dynamodb-table: Creating...
+aws_dynamodb_table.basic-dynamodb-table: Creation complete after 7s [id=Weather-stage]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+Releasing state lock. This may take a few moments...
+
+Outputs:
+
+this_dynamodb_table_arn = arn:aws:dynamodb:us-east-2:357771246612:table/Weather-stage
+this_dynamodb_table_id = Weather-stage
+this_dynamodb_table_stream_arn = 
+this_dynamodb_table_stream_label =
 
 ```
