@@ -285,3 +285,100 @@ Drop the table
    }
 
 ```
+
+## Deploying to AWS with Terraform
+
+First change directory to the environment that you want to deploy and initialize terragrunt, reviewing the output from [terragrunt plan](https://terragrunt.gruntwork.io/docs/reference/cli-options/).
+
+```
+
+> cd terraform/stage/dynamodb
+> terragrunt init
+> terragrunt plan
+
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+
+------------------------------------------------------------------------
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_dynamodb_table.basic-dynamodb-table will be created
+  + resource "aws_dynamodb_table" "basic-dynamodb-table" {
+      + arn              = (known after apply)
+      + billing_mode     = "PROVISIONED"
+      + hash_key         = "UserId"
+      + id               = (known after apply)
+      + name             = "test-table"
+      + range_key        = "GameTitle"
+      + read_capacity    = 20
+      + stream_arn       = (known after apply)
+      + stream_label     = (known after apply)
+      + stream_view_type = (known after apply)
+      + tags             = {
+          + "Environment" = "production"
+          + "Name"        = "dynamodb-table-1"
+        }
+      + write_capacity   = 20
+
+      + attribute {
+          + name = "GameTitle"
+          + type = "S"
+        }
+      + attribute {
+          + name = "TopScore"
+          + type = "N"
+        }
+      + attribute {
+          + name = "UserId"
+          + type = "S"
+        }
+
+      + global_secondary_index {
+          + hash_key           = "GameTitle"
+          + name               = "GameTitleIndex"
+          + non_key_attributes = [
+              + "UserId",
+            ]
+          + projection_type    = "INCLUDE"
+          + range_key          = "TopScore"
+          + read_capacity      = 10
+          + write_capacity     = 10
+        }
+
+      + point_in_time_recovery {
+          + enabled = (known after apply)
+        }
+
+      + server_side_encryption {
+          + enabled     = (known after apply)
+          + kms_key_arn = (known after apply)
+        }
+
+      + ttl {
+          + attribute_name = "TimeToExist"
+          + enabled        = false
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+------------------------------------------------------------------------
+
+```
+
+
+Now review the output
+
+```
+> terraform apply
+
+
+
+```
